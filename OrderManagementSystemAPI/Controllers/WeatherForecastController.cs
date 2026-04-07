@@ -1,7 +1,14 @@
-using Microsoft.AspNetCore.Mvc;
+// <copyright file="WeatherForecastController.cs" company="Northwind">
+// Copyright (c) Northwind. All rights reserved.
+// </copyright>
 
 namespace OrderManagementSystemAPI.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
+    /// <summary>
+    /// Controller for weather forecast operations.
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -13,11 +20,19 @@ namespace OrderManagementSystemAPI.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WeatherForecastController"/> class.
+        /// </summary>
+        /// <param name="logger">The logger instance.</param>
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
 
+        /// <summary>
+        /// Gets a collection of weather forecasts.
+        /// </summary>
+        /// <returns>An enumerable collection of weather forecasts.</returns>
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
@@ -25,7 +40,7 @@ namespace OrderManagementSystemAPI.Controllers
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                Summary = WeatherForecastController.Summaries[Random.Shared.Next(WeatherForecastController.Summaries.Length)],
             })
             .ToArray();
         }
